@@ -1,0 +1,12 @@
+
+  <h1>Projects</h1>
+  <div class="left-sidebar">
+    <ul>
+      <li ng-repeat="project in projects">
+        <a ui-sref="projects.project({id:project.id})">{{project.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="project-detail">
+    <ui-view></ui-view>
+  </div>

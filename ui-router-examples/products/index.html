@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Router Example</title>
+    <script src="../angular.js"></script>
+    <script src="../angular-ui-router.js"></script>
+    <style>.active { color: red; }</style>
+    <script>
+    function Product(id, name, price) {
+      this.id = id;
+      this.name = name;
+      this.price = price;
+    }
+
+    var products = {
+      '1': new Product(1, 'Basketball', 15.00),
+      '2': new Product(2, 'Air pump', 34.00),
+      '3': new Product(3, 'Shin guards', 12.00)
+    };
+
+    var app = angular.module('helloworld', ['ui.router']);
+
+    app.controller('ProductsController', function($scope, $stateParams) {
+      $scope.products = products;
+    });
+
+    app.controller('ProductController', function($scope, $stateParams) {
+      $scope.product = products[$stateParams.id];
+    });
+
+    app.config(function($stateProvider, $urlRouterProvider) {
+      $stateProvider
+        .state({
+          name: 'products',
+          url: '/products',
+          templateUrl: 'products.html',
+          controller: 'ProductsController'
+        })
+        .state({
+          name: 'products.product',
+          url: '/{id}',
+          templateUrl: 'product.html',
+          controller: 'ProductController'
+        });
+        $urlRouterProvider.otherwise('/products');
+    });
+    </script>
+  </head>
+  <body ng-app="helloworld">
+    <ui-view></ui-view>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Router Example</title>
+    <script src="../angular.js"></script>
+    <script src="../angular-ui-router.js"></script>
+    <style>.active { color: red; }</style>
+    <script>
+    var app = angular.module('helloworld', ['ui.router']);
+
+    var names = ['Arcadia', 'Linus', 'Marty', 'Arvin', 'Arnav', 'Emma'];
+
+    app.controller('HelloController', function($scope, $stateParams, $state) {
+      $scope.name = $stateParams.name;
+      $scope.random = function() {
+        var idx = Math.floor(Math.random() * names.length);
+        var name = names[idx];
+        $state.go('hello', { name: name });
+      };
+    });
+
+    app.config(function($stateProvider, $urlRouterProvider) {
+      $stateProvider
+        .state({
+          name: 'hello',
+          url: '/hello/{name}',
+          templateUrl: 'hello.html',
+          controller: 'HelloController'
+        });
+
+      $urlRouterProvider.otherwise('/hello/Arvin');
+    });
+    </script>
+  </head>
+  <body ng-app="helloworld">
+    <ui-view></ui-view>
+  </body>
+</html>
