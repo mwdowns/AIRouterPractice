@@ -1,0 +1,13 @@
+
+<div ng-show="page">
+<h1>{{page.title}}</h1>
+
+{{page.content}}<br>
+
+<a ui-sref="page_edit({page_name: pages})">Edit</a> page.
+</div>
+
+<div ng-show="!page">
+  This page doesn't exist. Want to <a ui-sref="page_edit({page_name: pages})">create</a> it?
+  {{pages}}
+</div>
